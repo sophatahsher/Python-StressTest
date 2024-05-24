@@ -31,7 +31,7 @@ pip install locust
 Put the website url in file `start_stress.py` you want to send requests and then run the following command:
 
 `
-python start_stress.py
+locust -f start_stress.py
 `
 
 ## Create a requirements.txt
