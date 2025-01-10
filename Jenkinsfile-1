@@ -13,6 +13,27 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Check and Install Python') {
+            steps {
+                script {
+                    // Check if Python 3 is installed
+                    def pythonCheck = sh(script: 'which python3', returnStatus: true)
+
+                    // If Python 3 is not installed (exit status 1), install it
+                    if (pythonCheck != 0) {
+                        echo "Python3 is not installed. Installing Python3..."
+                        sh '''
+                            # For Ubuntu/Debian-based systems
+                            sudo apt update
+                            sudo apt install python3 python3-pip python3-venv -y
+                        '''
+                    } else {
+                        echo "Python3 is already installed."
+                    }
+                }
+            }
+        }
+
         stage('Setup Environment') {
             steps {
                 // Set up Python virtual environment
