@@ -23,9 +23,15 @@ pipeline {
                     if (pythonCheck != 0) {
                         echo "Python3 is not installed. Installing Python3..."
                         sh '''
-                            # For Ubuntu/Debian-based systems
-                            sudo apt update
-                            sudo apt install python3 python3-pip python3-venv -y
+                            # Download and install Python3 without sudo
+                            wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
+                            tar -xvf Python-3.9.7.tgz
+                            cd Python-3.9.7
+                            ./configure --prefix=$HOME/python
+                            make
+                            make install
+                            export PATH=$HOME/python/bin:$PATH
+                            python3 --version
                         '''
                     } else {
                         echo "Python3 is already installed."
