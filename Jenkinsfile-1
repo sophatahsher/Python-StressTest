@@ -29,7 +29,7 @@ pipeline {
         stage('Static Code Analysis') {
             steps {
                 // Perform SonarQube analysis
-                withSonarQubeEnv('sq1') { // Replace 'SonarQube' with your configured server name
+                withSonarQubeEnv('sonar-config') { // Replace 'SonarQube' with your configured server name
                     sh """
                         source ${VENV_PATH}/bin/activate
                         ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
