@@ -22,9 +22,10 @@ pipeline {
                     // If Python 3 is not installed (exit status 1), install it
                     if (pythonCheck != 0) {
                         echo "Python3 is not installed. Installing Python3..."
+
+                        // Use curl instead of wget to download Python
                         sh '''
-                            # Download and install Python3 without sudo
-                            wget https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
+                            curl -O https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
                             tar -xvf Python-3.9.7.tgz
                             cd Python-3.9.7
                             ./configure --prefix=$HOME/python
@@ -39,6 +40,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('Setup Environment') {
             steps {
