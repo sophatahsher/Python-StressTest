@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONAR_SCANNER_HOME = tool 'sq1' // Replace with your SonarScanner installation name in Jenkins
+        SONAR_SCANNER_HOME = tool 'sonar' // Replace with your SonarScanner installation name in Jenkins
         VENV_PATH = './venv' // Path to your virtual environment
     }
 
