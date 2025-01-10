@@ -13,48 +13,48 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Check and Install Python') {
-            steps {
-                script {
-                    // Check if Python 3 is installed
-                    def pythonCheck = sh(script: 'which python3', returnStatus: true)
+        // stage('Check and Install Python') {
+        //     steps {
+        //         script {
+        //             // Check if Python 3 is installed
+        //             def pythonCheck = sh(script: 'which python3', returnStatus: true)
 
-                    // If Python 3 is not installed (exit status 1), install it
-                    if (pythonCheck != 0) {
-                        echo "Python3 is not installed. Installing Python3..."
+        //             // If Python 3 is not installed (exit status 1), install it
+        //             if (pythonCheck != 0) {
+        //                 echo "Python3 is not installed. Installing Python3..."
 
-                        // Use curl instead of wget to download Python
-                        sh '''
-                            curl -O https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
-                            tar -xvf Python-3.9.7.tgz
-                            cd Python-3.9.7
-                            ./configure --prefix=$HOME/python
-                            make
-                            make install
-                            export PATH=$HOME/python/bin:$PATH
-                            python3 --version
-                        '''
-                    } else {
-                        echo "Python3 is already installed."
-                    }
-                }
-            }
-        }
+        //                 // Use curl instead of wget to download Python
+        //                 sh '''
+        //                     curl -O https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz
+        //                     tar -xvf Python-3.9.7.tgz
+        //                     cd Python-3.9.7
+        //                     ./configure --prefix=$HOME/python
+        //                     make
+        //                     make install
+        //                     export PATH=$HOME/python/bin:$PATH
+        //                     python3 --version
+        //                 '''
+        //             } else {
+        //                 echo "Python3 is already installed."
+        //             }
+        //         }
+        //     }
+        // }
 
 
-        stage('Setup Environment') {
-            steps {
-                // Set up Python virtual environment
-                // Echo the Python version
-                sh 'python3 --version'
-                sh '''
-                    python3 -m venv ${VENV_PATH}
-                    source ${VENV_PATH}/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
-            }
-        }
+        // stage('Setup Environment') {
+        //     steps {
+        //         // Set up Python virtual environment
+        //         // Echo the Python version
+        //         sh 'python3 --version'
+        //         sh '''
+        //             python3 -m venv ${VENV_PATH}
+        //             source ${VENV_PATH}/bin/activate
+        //             pip install --upgrade pip
+        //             pip install -r requirements.txt
+        //         '''
+        //     }
+        // }
 
         stage('Static Code Analysis') {
             steps {
